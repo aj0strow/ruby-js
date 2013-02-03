@@ -37,3 +37,32 @@ buster.testCase('Array#at', {
     assert( _.isEqual(2, this.a.at(-2)) );
   }
 });
+
+buster.testCase('Array#clear', {
+  'empties ary': function() {
+    assert( _.isEqual(['hey', 4, 2].clear(), []) );
+  }
+});
+
+buster.testCase('Array#map #collect', {
+  'block': function() {
+    assert( _.isEqual([2, 3, 4], [1, 2, 3].map(function(x) { return x + 1; } )) );
+    assert( _.isEqual(['1', '2', '3'], [1, 2, 3].collect(function(x) { return '' + x; } )) );
+  },
+  'symbol': function() {
+    assert( _.isEqual([1, 1, 2], ['a', 'b', 'cc'].map('length')) );
+    assert( _.isEqual(['a', 'b', 'c'], [{k: 'a'}, {k: 'b'}, {k: function() { return 'c';} }].collect('k')) );
+  }
+});
+
+buster.testCase('Array#compact', {
+  'remove null': function() {
+    assert( _.isEqual([1, 2], [1, null, 2, null].compact()) );
+  },
+  'remove und': function() {
+    assert( _.isEqual([1, undefined, 2].compact(), [1, 2]) );
+  }
+});
+
+
+

@@ -5,8 +5,11 @@ If you're familiar with programming in ruby, sometimes it's hard to work with ot
 Docs will be a long time coming... however a checklist:
 
 Object
-- is_a
+- class
 
 
 Array:
-
+- ::new
+- at
+- clear
+- map & collect
