@@ -64,5 +64,45 @@ buster.testCase('Array#compact', {
   }
 });
 
+buster.testCase('Array#concat', {
+  'appends': function() {
+    assert( _.isEqual([1, 2, 3, 4], [1, 2].concat([3, 4])) );
+  }
+});
+
+buster.testCase('Array#count', {
+  'no args': function() {
+    assert( 3 === [1, 1, 1].count() );
+  },
+  'value': function() {
+    assert( 2 === [1, 3, 1].count(1) );
+  },
+  'block': function() {
+    assert( 1 === [1, 2, 3].count(function(x) { return x % 2 == 0; }) );
+  }
+});
+
+buster.testCase('Array#cycle', {
+  'block and amount': function() {
+    var out = "";
+    [1, 2, 3].cycle(2, function(x) { out += x; });
+    console.log(out);
+    assert( out === "123123" );
+  },
+  'enuemrator': function() {
+    assert( _.isEqual([1, 2].cycle(3), [1, 2, 1, 2, 1, 2]) );
+  }
+});
+
+buster.testCase('Array#drop', {
+  'removes first elements': function() {
+    assert( _.isEqual([1, 2, 3].drop(2), [3]) );
+    assert( _.isEqual([1, 2, 3].drop(4), []) );
+  }
+});
+
+
+
+
 
 

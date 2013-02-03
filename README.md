@@ -13,3 +13,7 @@ Array:
 - at
 - clear
 - map & collect
+- compact
+- concat
+- count
+- cycle
