@@ -27,16 +27,30 @@ buster.testCase('Enumerator#each', {
   }
 });
 
+
+buster.testCase('Enumerator#with_index', {
+  'iterates on start index': function() {
+    var a = ['a', 'b', 'c'];
+    var en = Enumerator.new(a.length, function(i) { return a[i]; });
+    var vals = '';
+    var indeces = '';
+    var fn = function(x, i) { vals += x; indeces += i }
+    
+    assert.equals( ['a', 'b', 'c'], en.with_index(4, fn) );
+    assert.equals( vals, 'abc' );
+    assert.equals( indeces, '456' );
+  }
+});
+
 buster.testCase('Enumerator#each_with_index', {
   'iterates': function() {
     var a = ['a', 'b', 'c'];
     var en = Enumerator.new(a.length, function(i) { return a[i]; });
     var vals = '';
     var indeces = '';
-    assert( _.isEqual(['a', 'b', 'c'], en.each_with_index(function(x, i) { 
-      vals += x;
-      indeces += i;
-    })) );
+    var fn = function(x, i) { vals += x; indeces += i }
+    
+    assert.equals( ['a', 'b', 'c'], en.each_with_index(fn) );
     assert.equals( vals, 'abc' );
     assert.equals( indeces, '012' );
   }
@@ -94,9 +108,35 @@ buster.testCase('Enumerator#next_values', {
   }
 });
 
+buster.testCase('Enumerator#peek', {
+  setUp: function() {
+    var a = [1, 2];
+    this.en = Enumerator.new(a.length, function(i) { return a[i]; });
+  },
+  'returns value': function() {
+    assert.equals( 1, this.en.peek() );
+  },
+  'doesnt exhaust values': function() {
+    var en = this.en;
+    var x = en.peek(), y = en.next();
+    
+    assert.equals(x, y);
+    refute.exception( function() { 
+      en.next();
+    } );
+  }
+});
 
-
-
+buster.testCase('Enumerator#peek_values', {
+  'returns array always': function() {
+    var a = [1, 2, 3];
+    var vals = Enumerator.new(a.length, function(i) { return a[i]; });
+    var with_indeces = Enumerator.new(a.length, function(i) { return [a[i], i]; });
+    
+    assert.equals(vals.peek_values(), [1]);
+    assert.equals(with_indeces.peek_values(), [1, 0]);
+  }
+});
 
 
 

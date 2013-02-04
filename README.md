@@ -10,10 +10,12 @@ Object
 Enumerator:
 - ::new
 - each
-- each\_with_index
-- with_object & each\_with\_object\_
 - next
 - next_values
+- peek
+- peek_values
+- with_index & each\_with\_index
+- with_object & each\_with\_object\_
 
 Array:
 _(Haven't figured out how to do enumerators yet, so it will return actual array)_

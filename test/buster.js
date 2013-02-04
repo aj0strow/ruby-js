@@ -7,6 +7,5 @@ config['My tests'] = {
 }
 
 buster = require('buster');
-_ = require('underscore');
 assert = buster.assertions.assert;
 refute = buster.assertions.refute;

@@ -84,7 +84,6 @@ buster.testCase('Array#cycle', {
   'block and amount': function() {
     var out = "";
     [1, 2, 3].cycle(2, function(x) { out += x; });
-    console.log(out);
     assert.equals( out, "123123" );
   },
   'enuemrator': function() {
