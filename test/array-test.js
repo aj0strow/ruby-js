@@ -101,6 +101,40 @@ buster.testCase('Array#drop', {
   }
 });
 
+buster.testCase('Array#drop_while', {
+  'below 3': function() {
+    assert( _.isEqual([1, 2, 3, 4].drop_while(function(x) { return x < 3; }), [3, 4]) );
+  },
+  'no block': function() {
+    assert( _.isEqual([1, 2].drop_while(), [1, 2]) );
+  }
+});
+
+buster.testCase('Array#append', {
+  'appends array': function() {
+    assert( _.isEqual([1, 2].append([3, 4]), [1, 2, 3, 4]) );
+  }
+});
+
+buster.testCase('Array#each', {
+  'iterates': function() {
+    var s = "";
+    var a = [1, 2, 3];
+    var output = a.each( function(n) { s += n; } );
+    
+    var arys = [[1], [2]];
+    
+    assert( _.isEqual(a, output) )
+    assert( _.isEqual(s, "123") );
+    assert( _.isEqual(arys.each('clear'), [[], []]) );
+  }
+});
+
+
+
+
+
+
 
 
 

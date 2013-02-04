@@ -9,6 +9,7 @@ Object
 
 
 Array:
+_(Haven't figured out how to do enumerators yet, so it will return actual array)_
 - ::new
 - at
 - clear
@@ -17,3 +18,9 @@ Array:
 - concat
 - count
 - cycle
+- drop
+- drop_while
+- each _(can't break to return nil)_
+
+*new* in Array:
+- append (think of it as concat!)
