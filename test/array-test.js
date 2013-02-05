@@ -42,17 +42,6 @@ buster.testCase('Array#clear', {
   }
 });
 
-buster.testCase('Array#map #collect', {
-  'block': function() {
-    assert.equals( [2, 3, 4], [1, 2, 3].map(function(x) { return x + 1; }) );
-   assert.equals( ['1', '2', '3'], [1, 2, 3].collect(function(x) { return '' + x; }) );
-  },
-  'symbol': function() {
-    assert.equals( [1, 1, 2], ['a', 'b', 'cc'].map('length') );
-    assert.equals( ['a', 'b', 'c'], [{k: 'a'}, {k: 'b'}, {k: function() { return 'c';} }].collect('k') );
-  }
-});
-
 buster.testCase('Array#compact', {
   'remove null': function() {
     assert.equals( [1, 2], [1, null, 2, null].compact() );
@@ -86,8 +75,11 @@ buster.testCase('Array#cycle', {
     [1, 2, 3].cycle(2, function(x) { out += x; });
     assert.equals( out, "123123" );
   },
-  'enuemrator': function() {
-    assert.equals([1, 2].cycle(3), [1, 2, 1, 2, 1, 2] );
+  'enumerator': function() {
+    var en = [1, 2].cycle(3);
+    assert.equals( en.length, 6 );
+    
+    assert.equals([1, 2].cycle(3).to_a(), [1, 2, 1, 2, 1, 2] );
   }
 });
 
@@ -107,12 +99,6 @@ buster.testCase('Array#drop_while', {
   }
 });
 
-buster.testCase('Array#append', {
-  'appends array': function() {
-    assert.equals([1, 2].append([3, 4]), [1, 2, 3, 4] );
-  }
-});
-
 buster.testCase('Array#each', {
   'iterates': function() {
     var s = "";
@@ -126,7 +112,7 @@ buster.testCase('Array#each', {
     assert.equals( arys.each('clear'), [[], []] );
   },
   'no args': function() {
-    assert.equals( [1].each(), [1] );
+    assert.equals( [1].each().to_a(), [1] );
   }
 });
 
@@ -140,11 +126,17 @@ buster.testCase('Array#each_index', {
     assert.equals( s, "012" );
   },
   'enumerator': function() {
-    assert.equals( [0, 1, 2], [3, 4, 5].each_index() );
+    assert.equals( [0, 1, 2], [3, 4, 5].each_index().to_a() );
   }
 });
 
+// Added methods
 
+buster.testCase('Array#append', {
+  'appends array': function() {
+    assert.equals([1, 2].append([3, 4]), [1, 2, 3, 4] );
+  }
+});
 
 
 

@@ -7,13 +7,13 @@ buster.testCase('Enumerator::new', {
     this.en =  Enumerator.new(5, function(i) { return i; });
   },
   'creates obj': function() {
-    assert.equals( this.en.class(), 'Enumerator' );
+    assert.equals( class_of(this.en), 'Enumerator' );
   },
   'has length': function() {
     assert.equals( this.en.length, 5 );
   },
   'has next method': function() {
-    assert.equals( this.en.next_fn.class(), 'Function');
+    assert.equals( class_of(this.en.get_value_at), 'Function');
   }
 });
 
@@ -138,7 +138,13 @@ buster.testCase('Enumerator#peek_values', {
   }
 });
 
-
+buster.testCase('Enumerable#to_a', {
+  'returns the array': function() {
+    var a = [1, 2, 3];
+    var en = Enumerator.new(a.length, function(i) { return a[i]; });
+    assert.equals(en.to_a(), a);
+  }
+});
 
 
 

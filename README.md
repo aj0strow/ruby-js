@@ -15,14 +15,13 @@ Enumerator:
 - peek
 - peek_values
 - with_index & each\_with\_index
-- with_object & each\_with\_object\_
+- with_object & each\_with\_object
+- to_a
 
 Array:
-_(Haven't figured out how to do enumerators yet, so it will return actual array)_
 - ::new
 - at
 - clear
-- map & collect
 - compact
 - concat
 - count
@@ -31,6 +30,11 @@ _(Haven't figured out how to do enumerators yet, so it will return actual array)
 - drop_while
 - each _(can't break to return nil)_
 - each_index
+
+Enumerable:
+- all
+- any
+- map & collect
 
 *new* in Array:
 - append (think of it as concat!)
