@@ -14,6 +14,10 @@ buster.testCase('Enumerator::new', {
   },
   'has next method': function() {
     assert.equals( class_of(this.en.get_value_at), 'Function');
+  },
+  'takes a raw array': function() {
+    var a = [1, 2, 3];
+    assert.equals( Enumerator.new(a).to_a(), a );
   }
 });
 

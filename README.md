@@ -24,17 +24,24 @@ Array:
 - clear
 - compact
 - concat
-- count
-- cycle
 - drop
 - drop_while
 - each _(can't break to return nil)_
 - each_index
 
+*new* in Array:
+- append (think of it as concat!)
+
 Enumerable:
 - all
 - any
+- count
+- cycle
+- detect & find
+- each_cons
+- each_slice
+- flat_map & collect\_concat
 - map & collect
 
-*new* in Array:
-- append (think of it as concat!)
+
+

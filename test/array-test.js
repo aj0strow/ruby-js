@@ -57,32 +57,6 @@ buster.testCase('Array#concat', {
   }
 });
 
-buster.testCase('Array#count', {
-  'no args': function() {
-    assert.equals( 3, [1, 1, 1].count() );
-  },
-  'value': function() {
-    assert.equals( 2, [1, 3, 1].count(1) );
-  },
-  'block': function() {
-    assert.equals( 1, [1, 2, 3].count(function(x) { return x % 2 == 0; }) );
-  }
-});
-
-buster.testCase('Array#cycle', {
-  'block and amount': function() {
-    var out = "";
-    [1, 2, 3].cycle(2, function(x) { out += x; });
-    assert.equals( out, "123123" );
-  },
-  'enumerator': function() {
-    var en = [1, 2].cycle(3);
-    assert.equals( en.length, 6 );
-    
-    assert.equals([1, 2].cycle(3).to_a(), [1, 2, 1, 2, 1, 2] );
-  }
-});
-
 buster.testCase('Array#drop', {
   'removes first elements': function() {
     assert.equals([1, 2, 3].drop(2), [3] );

@@ -1,6 +1,6 @@
 require('../ruby');
 
-var a = ['a', 'b', { length: function() { return 1; } }];
+var a = [1, 2, 3, 4];
 
-console.log(a.map('length'));
+console.log(a.slice(3, 8));
 
