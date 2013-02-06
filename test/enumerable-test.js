@@ -111,12 +111,61 @@ buster.testCase('Enumerable#each_slice', {
   }
 });
 
+buster.testCase('Enumerable#find_all #select', {
+  'no block': function() {
+    assert.equals( [1, 2, 3], [1, 2, 3].find_all().to_a() );
+  },
+  'with block': function() {
+    assert.equals( [1, 2, 3, 4].select(function(x) { return x % 2 == 0; }), [2, 4] );
+  }
+});
 
+buster.testCase('Enumerable#find_index', {
+  'no block': function() {
+    assert.equals( [1, 2, 3], [1, 2, 3].find_index().to_a() );
+  },
+  'with value': function() {
+    assert.equals( 2, ['a', 'b', 'c'].find_index('c') );
+    assert.equals( null, [1, 2, 3].find_index(5) );
+  },
+  'with block': function() {
+    assert.equals( 1, [1, 2, 3].find_index(function(x) { return x % 2 == 0; }) );
+    assert.equals( null, [1, 2].find_index(function(x) { return x > 5; } ) );
+  }
+});
 
+buster.testCase('Enumerable#first', {
+  'no amount': function() {
+    assert.equals( null, [].first() );
+    assert.equals( 1, [1, 2, 3].first() );
+  },
+  'with amount': function() {
+    assert.equals( [1, 2], [1, 2, 3, 4].first(2) );
+  }
+});
 
+buster.testCase('Enumerable#take', {
+  'works': function() {
+    assert.equals( [1, 2], [1, 2, 3, 4].take(2) );
+  }
+});
 
+buster.testCase('Enumerable#group_by', {
+  'no block': function() {
+    assert.equals( [1, 2], [1, 2].group_by().to_a() );
+  },
+  'with block': function() {
+    var fn = function(x) { return x % 3; };
+    assert.equals( { 0: [3, 6], 1: [1, 4], 2: [2, 5]}, [1, 2, 3, 4, 5, 6].group_by(fn) );
+  }
+});
 
-
+buster.testCase('Enumerable#include', {
+  'works': function() {
+    assert( [1, 2].include(2) );
+    refute( [1, 2].member(8) );
+  }
+});
 
 
 
