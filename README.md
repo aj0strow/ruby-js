@@ -1,6 +1,6 @@
 # ruby-js
 
-If you're familiar with ruby, sometimes when you're working in other languages you miss it. My goal with this is to implement every method of Array and go from there!
+If you're familiar with ruby, sometimes when working in other languages something feels missing. My goal with this is to implement every method of Array and go from there!
 
 Docs will be a long time coming... however a checklist:
 
@@ -40,13 +40,21 @@ Enumerable:
 - detect & find
 - each_cons
 - each_slice
+- each_with\_index
+- each_with\_object
 - flat_map & collect\_concat
 - find_index
 - first
 - select & find_all
 - group_by
 - include & member
+- inject _(not reduce)_
 - map & collect
+- none
+- one
+- partition
+- reject
+- reverse_each
 - take
 
 

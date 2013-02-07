@@ -1,5 +1,7 @@
 require('../ruby');
 
+var even_fn = function(x) { return x % 2 == 0; };
+
 buster.testCase('Enumerable#all', {
   'no block': function() {
     refute( [1, 2, null].all() );
@@ -33,7 +35,7 @@ buster.testCase('Enumerable#any', {
     refute( [null, undefined, false].any() );
   },
   'works': function() {
-    assert( [1, 2, 3].any(function(x) { return x % 2 === 0; }) );
+    assert( [1, 2, 3].any(even_fn) );
     refute( [23, 'b', 4.12].any(function(x) { return x === null; }) );
   }
 });
@@ -58,7 +60,7 @@ buster.testCase('Enumerable#count', {
     assert.equals( 2, [1, 3, 1].count(1) );
   },
   'block': function() {
-    assert.equals( 1, [1, 2, 3].count(function(x) { return x % 2 == 0; }) );
+    assert.equals( 1, [1, 2, 3].count(even_fn) );
   }
 });
 
@@ -81,7 +83,7 @@ buster.testCase('Enumerable#detect', {
   },
   'works': function() {
     assert.equals( [ 1, 2, 3 ].detect(function(x) { return x > 6; }), null );
-    assert.equals( [ 1, 2, 3 ].detect(function(x) { return x % 2 == 0; }), 2 );
+    assert.equals( [ 1, 2, 3 ].detect(even_fn), 2 );
   }
 });
 
@@ -116,7 +118,7 @@ buster.testCase('Enumerable#find_all #select', {
     assert.equals( [1, 2, 3], [1, 2, 3].find_all().to_a() );
   },
   'with block': function() {
-    assert.equals( [1, 2, 3, 4].select(function(x) { return x % 2 == 0; }), [2, 4] );
+    assert.equals( [1, 2, 3, 4].select(even_fn), [2, 4] );
   }
 });
 
@@ -129,7 +131,7 @@ buster.testCase('Enumerable#find_index', {
     assert.equals( null, [1, 2, 3].find_index(5) );
   },
   'with block': function() {
-    assert.equals( 1, [1, 2, 3].find_index(function(x) { return x % 2 == 0; }) );
+    assert.equals( 1, [1, 2, 3].find_index(even_fn) );
     assert.equals( null, [1, 2].find_index(function(x) { return x > 5; } ) );
   }
 });
@@ -166,6 +168,99 @@ buster.testCase('Enumerable#include', {
     refute( [1, 2].member(8) );
   }
 });
+
+buster.testCase('Enumerable#each_with_index', {
+  'no block': function() {
+    assert( [['a', 0], ['b', 1]], ['a', 'b'].each_with_index() );
+  },
+  'with block': function() {
+    var s = '';
+    ['a', 'b', 'c'].each_with_index(function(x, i) { s += x + i; });
+    assert( s, 'a0b1c2' );
+  }
+});
+
+buster.testCase('Enumerable#each_with_object', {
+  'no block': function() {
+    assert( [1, 2, 3].each_with_object('a'), [[1, 'a'], [2, 'a'], [3, 'a']] );
+  }, 
+  'with block': function() {
+    assert( [2, 4, 6], [1, 2, 3].each_with_object([], function(val, ary) { ary.push(val); }) );
+  }
+});
+
+buster.testCase('Enumerable#inject #reduce', {
+  'no block': function() {
+    assert.equals( null, [1, 2, 3].inject() );
+  },
+  'with symbol': function() {
+    assert.equals( [[1], [2], [3]].inject('append'), [1, 2, 3] );
+  },
+  'with value and symbol': function() {
+    assert.equals( ['b', 'c', 'd'].inject('a', 'concat'), 'abcd' );
+  },
+  'with block': function() {
+    var fn = function(sum, n) { return sum + n; }
+    assert.equals( [1, 2, 3].inject(fn), 6 );
+  },
+  'with value and block': function() {
+    var fn = function(product, n) { return product * n; };
+    assert.equals( [1, 2, 3].inject(1, fn), 6 );
+  }
+});
+
+buster.testCase('Enumerable#none', {
+  'no block': function() {
+    assert( [].none() );
+    assert( [null, false, undefined].none() );
+  },
+  'with block': function() {
+    refute( [1, 2, 3].none(function(x) { return x < 4; }) );
+    assert( [1, 2, 3].none(function(x) { return x > 5; }) )
+  },
+});
+
+buster.testCase('Enumerable#one', {
+  'no block': function() {
+    assert( [5, null, false, undefined].one() );
+    refute( ['a', 'b'].one() );
+  },
+  'with block': function() {
+    assert( [1, 2, 3].one(even_fn) );
+    refute( ['aaa', 'bbb', 'cccc'].one(function(x) { return x.length === 3 }) );
+  }
+});
+
+buster.testCase('Enumerable#partition', {
+  'no block': function() {
+    assert.equals( [1, 2], [1, 2].partition().to_a() );
+  },
+  'with block': function() {
+    assert.equals( [[2, 4], [1, 3]], [1, 2, 3, 4].partition(even_fn) );
+  }
+});
+
+buster.testCase('Enumerable#reject', {
+  'no block': function() {
+    assert.equals( [1, 2], [1, 2].reject().to_a() );
+  },
+  'with block': function() {
+    assert.equals( [1, 3], [1, 2, 3, 4].reject(even_fn) );
+  }
+});
+
+buster.testCase('Enumerable#reverse_each', {
+  'no block': function() {
+    assert.equals( [1, 2, 3].reverse_each().to_a(), [3, 2, 1] );
+  },
+  'with block': function() {
+    var s = '';
+    [1, 2, 3].reverse_each(function(n) { s += n; });
+    assert.equals( s, '321' );
+  }
+});
+
+
 
 
 
