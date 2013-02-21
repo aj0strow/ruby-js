@@ -12,6 +12,7 @@ class_of = function(obj) {
 }
 
 require('./lib/object');
+require('./lib/string');
 require('./lib/enumerator');
 var enumerable = require('./lib/enumerable');
 require('./lib/array');
@@ -25,5 +26,6 @@ function extend_class(klass, mixin, force_flag) {
 }
 
 extend_class(Array, enumerable.Enumerable, true);
+
 
 module.exports.extend_class = extend_class;

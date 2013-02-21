@@ -1,6 +1,25 @@
 # ruby-js
 
-If you're familiar with ruby, sometimes when working in other languages something feels missing. My goal with this is to implement every method of Array and go from there!
+If you're familiar with ruby, occasionally when coding in other languages something feels missing. My goal with this is to implement every method of Array and go from there!
+
+Some example code:
+
+    var records = [ { name: 'AJ', age: 19 }, { name: 'Eli', age: 17 } ];
+    var names = records.collect('name').map('reverse');
+    //= [ "JA", "ilE" ]
+
+    var evens = [], odds = [];
+    [1, 2, 3, 4, 5, 6].each_slice(2, function(left, right) {
+	    evens.push(right); odds.push(left);
+    });
+		[evens, odds]
+		//= [ [ 2, 4, 6 ], [ 1, 3, 5 ] ]
+		
+		function below(min) {
+			return function(x) { return x < min };
+		}
+		[25, 4, 8, 23, 19].reject( below(20) );
+		//= [ 25, 23 ]
 
 Docs will be a long time coming... however a checklist:
 

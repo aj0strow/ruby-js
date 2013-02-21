@@ -85,6 +85,12 @@ buster.testCase('Array#each', {
     assert.equals( s, "123" );
     assert.equals( arys.each('clear'), [[], []] );
   },
+  'destructures': function() {
+    var a = [[1, 1], [1, 2]];
+    var s = "";
+    a.each(function(a, b) { s += (a+b); });
+    assert.equals( s, "23")
+  },
   'no args': function() {
     assert.equals( [1].each().to_a(), [1] );
   }

@@ -26,6 +26,9 @@ buster.testCase('Enumerable#map #collect', {
   },
   'enumerator': function() {
     assert.equals( [1, 2].map().to_a(), [1, 2] );
+  },
+  'destructured': function() {
+    assert.equals( [[1, 2], [2, 3]].map(function(a, b) { return a + b; }), [3, 5] );
   }
 });
 
@@ -97,6 +100,13 @@ buster.testCase('Enumerable#each_cons', {
       s += (vals[1] - vals[0]);
     });
     assert.equals( '11', s );
+  },
+  'destructured': function() {
+    var vals = [];
+    [1, 2, 3, 4].each_cons(2, function(a, b) {
+      vals.push( a*b );
+    });
+    assert.equals( vals, [2, 6, 12] );
   }
 });
 
@@ -110,6 +120,11 @@ buster.testCase('Enumerable#each_slice', {
     [1, 2, 3, 4, 5, 6].each_slice(2, function(a) { odds += a[0]; evens += a[1]; });
     assert.equals( odds, 9 );
     assert.equals( evens, 12 );
+  },
+  'destructured': function() {
+    var vals = [];
+    [1, 2, 3, 4, 5, 6].each_slice(3, function(a, b, c) { vals.push(a+b+c); });
+    assert.equals( vals, [6, 15] );
   }
 });
 
