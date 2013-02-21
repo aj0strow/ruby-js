@@ -5,7 +5,7 @@ If you're familiar with ruby, occasionally when coding in other languages someth
 Some example code:
 
     var records = [ { name: 'AJ', age: 19 }, { name: 'Eli', age: 17 } ];
-    var names = records.collect('name').map('reverse');
+    records.collect('name').map('reverse')
     //= [ "JA", "ilE" ]
 
     var evens = [], odds = [];
@@ -18,7 +18,7 @@ Some example code:
     function below(min) {
       return function(x) { return x < min };
     }
-    [25, 4, 8, 23, 19].reject( below(20) );
+    [25, 4, 8, 23, 19].reject( below(20) )
     //= [ 25, 23 ]
 
 Docs will be a long time coming... however a checklist:
