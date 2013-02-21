@@ -12,14 +12,14 @@ Some example code:
     [1, 2, 3, 4, 5, 6].each_slice(2, function(left, right) {
 	    evens.push(right); odds.push(left);
     });
-		[evens, odds]
-		//= [ [ 2, 4, 6 ], [ 1, 3, 5 ] ]
-		
-		function below(min) {
-			return function(x) { return x < min };
-		}
-		[25, 4, 8, 23, 19].reject( below(20) );
-		//= [ 25, 23 ]
+    [evens, odds]
+    //= [ [ 2, 4, 6 ], [ 1, 3, 5 ] ]
+
+    function below(min) {
+      return function(x) { return x < min };
+    }
+    [25, 4, 8, 23, 19].reject( below(20) );
+    //= [ 25, 23 ]
 
 Docs will be a long time coming... however a checklist:
 
