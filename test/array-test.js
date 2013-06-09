@@ -2,59 +2,42 @@
 
 require('../ruby');
 
-buster.testCase('Array::new', {
-  'no args': function () {
-    assert.equals( [], Array.new() );
+buster.testCase('Array', {
+  
+  '::new': {
+    'default value': function() {
+      assert.equals( ['hi', 'hi', 'hi'], Array.new(3, 'hi') );
+    },
+    
+    'block with index': function() {
+      assert.equals( [0, 1, 2], Array.new(3, function(i){ return i; }) );
+    }
   },
-  'size': function() {
-    assert.equals( Array.new(3), [null, null, null] );
+  
+  '#compact': function() {
+    assert.equals( ['a'], ['a', null, undefined].compact() );
   },
-  'default': function() {
-    assert.equals( Array.new(3, 'hi'), ['hi', 'hi', 'hi'] );
+  
+  '#at': function() {
+    var a = [1, 2, 3];
+    assert.equals( undefined, a.at(6) );
+    assert.equals( 1, a.at(0) );
+    assert.equals( 3, a.at(-1) );
   },
-  'block': function() {
-    var block = function(i) { return i * 2; };
-    assert.equals( Array.new(5, block), [0, 2, 4, 6, 8] );
+  
+  '#clear': function() {
+    assert.equals( [], ['hey', 4, 2].clear() );
+  },
+  
+  '#append': function() {
+    var a = [1, 2];
+    a.append(a);
+    assert.equals( [1, 2, 1, 2], a );
   }
-});
-
-buster.testCase('Array#at', {
-  setUp: function() {
-    this.a = [1, 2, 3];
-  },
-  'out of range': function() {
-    assert.equals( null, this.a.at(6) );
-    assert.equals( null, this.a.at(-4) );
-  },
-  'positive index': function() {
-    assert.equals( 1, this.a.at(0) );
-    assert.equals( 2, this.a.at(1) );
-  },
-  'negative index': function() {
-    assert.equals( 3, this.a.at(-1) );
-    assert.equals( 2, this.a.at(-2) );
-  }
-});
-
-buster.testCase('Array#clear', {
-  'empties ary': function() {
-    assert.equals( ['hey', 4, 2].clear(), [] );
-  }
-});
-
-buster.testCase('Array#compact', {
-  'remove null': function() {
-    assert.equals( [1, 2], [1, null, 2, null].compact() );
-  },
-  'remove und': function() {
-    assert.equals( [1, undefined, 2].compact(), [1, 2] );
-  }
-});
-
-buster.testCase('Array#concat', {
-  'appends': function() {
-    assert.equals( [1, 2, 3, 4], [1, 2].concat([3, 4]) );
-  }
+    
+  
+  
+  
 });
 
 buster.testCase('Array#drop', {
@@ -107,14 +90,6 @@ buster.testCase('Array#each_index', {
   },
   'enumerator': function() {
     assert.equals( [0, 1, 2], [3, 4, 5].each_index().to_a() );
-  }
-});
-
-// Added methods
-
-buster.testCase('Array#append', {
-  'appends array': function() {
-    assert.equals([1, 2].append([3, 4]), [1, 2, 3, 4] );
   }
 });
 

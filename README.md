@@ -76,5 +76,8 @@ Enumerable:
 - reverse_each
 - take
 
+String
+- reverse
+- captialize
 
 
