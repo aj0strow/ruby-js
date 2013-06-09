@@ -1,6 +1,6 @@
 # ruby-js
 
-If you're familiar with ruby, occasionally when coding in other languages something feels missing. My goal with this is to implement every method of Array and go from there!
+The point of this module is to ease the pain of transitioning from ruby to javascript. My goal with ruby-js is to implement the essential ruby standard library methods right on their native javascript prototype counterparts. What makes a method essential? If there's that constant inconvenience and a little cringe when it's not available as ya program in javascript. 
 
 Some example code:
 
@@ -43,10 +43,7 @@ Array:
 - clear
 - compact
 - concat
-- drop
-- drop_while
 - each _(can't break to return nil)_
-- each_index
 
 *new* in Array:
 - append (think of it as concat!)
@@ -78,7 +75,7 @@ Enumerable:
 
 String
 - reverse
-- captialize
+- capitalize
 - downcase
 - upcase
 - scan
