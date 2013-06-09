@@ -79,5 +79,8 @@ Enumerable:
 String
 - reverse
 - captialize
-
+- downcase
+- upcase
+- scan
+- gsub
 
